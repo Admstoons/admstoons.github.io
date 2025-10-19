@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Memood Adams | Flutter & AI Mobile Developer</title>
+
+  <meta name="description"
+    content="Memood Adams — Flutter Developer crafting AI-powered mobile apps with clean architecture and intelligent design." />
+  <meta name="author" content="Memood Adams" />
+  <meta property="og:title" content="Memood Adams | Flutter & AI Mobile Developer" />
+  <meta property="og:description"
+    content="Portfolio of Memood Adams — building AI-powered mobile apps using Flutter, Dart, Riverpod, and more." />
+  <meta property="og:image" content="images/preview-thumbnail.jpg" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* --- GLOBAL STYLES --- */
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #0D1117;
+      /* Deep Dark Background */
+      color: #E5E7EB;
+      scroll-behavior: smooth;
+    }
+
+    /* --- NEW COLOR DEFINITIONS (DEEP AZURE BLUE) --- */
+    .text-accent {
+      color: #00BFFF;
+      /* Deep Azure Blue Accent */
+    }
+
+    .bg-card {
+      background-color: #161B22;
+      border: 1px solid #282E3A;
+    }
+
+    .btn-primary {
+      background: linear-gradient(to right, #00BFFF, #1E90FF);
+      /* Azure Blue Gradient for buttons */
+      color: #0D1117;
+      transition: opacity 0.3s;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.9;
+    }
+
+    .gradient-text {
+      background: linear-gradient(to right, #00BFFF, #1E90FF);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* --- ANIMATIONS & HOVER EFFECTS --- */
+    .skill-bar-fill {
+      background-color: #00BFFF;
+      animation: fillBar 2s ease-out forwards;
+    }
+
+    @keyframes fillBar {
+      from {
+        width: 0;
+      }
+    }
+
+    .animated-card:hover {
+      transform: translateY(-5px);
+      /* Lift effect */
+      box-shadow: 0 10px 20px rgba(0, 191, 255, 0.2);
+      /* Soft Blue shadow */
+      transition: all 0.3s ease-in-out;
+    }
+
+    .nav-link.active {
+      border-bottom: 2px solid #00BFFF;
+      color: #00BFFF;
+    }
+
+    /* Hero Image Pulse Animation */
+    .avatar-pulse {
+      animation: pulse-border 2s infinite cubic-bezier(0.66, 0, 0, 1);
+    }
+
+    @keyframes pulse-border {
+      0% {
+        box-shadow: 0 0 0 0 rgba(0, 191, 255, 0.4);
+      }
+
+      100% {
+        box-shadow: 0 0 0 15px rgba(0, 191, 255, 0);
+      }
+    }
+
+    /* Page Fade-In Animation */
+    .fade-in {
+      animation: fadeIn 1.5s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Project Carousel Specific Styles */
+    .project-image-container {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .project-image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      /* Changed from 'cover' to 'contain' */
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+      background-color: #161B22;
+      /* Add a background for the empty space */
+    }
+
+    .project-image.active {
+      opacity: 1;
+    }
+
+    .carousel-button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.6);
+      color: white;
+      border: none;
+      padding: 0.5rem 0.75rem;
+      cursor: pointer;
+      z-index: 10;
+      font-size: 1.25rem;
+      border-radius: 0.25rem;
+    }
+
+    .carousel-button-prev {
+      left: 0.5rem;
+    }
+
+    .carousel-button-next {
+      right: 0.5rem;
+    }
+  </style>
+</head>
+
+<body class="leading-relaxed">
+
+  <header class="sticky top-0 z-50 bg-[#0D1117]/95 backdrop-blur-sm shadow-lg border-b border-[#282E3A]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+      <a href="#home" class="text-2xl font-bold text-accent">Memood Adams</a>
+      <nav class="hidden md:flex space-x-8">
+        <a href="#home" class="nav-link text-sm font-semibold hover:text-accent transition duration-150">Home</a>
+        <a href="#about" class="nav-link text-sm font-semibold hover:text-accent transition duration-150">About</a>
+        <a href="#skills" class="nav-link text-sm font-semibold hover:text-accent transition duration-150">Skills</a>
+        <a href="#services"
+          class="nav-link text-sm font-semibold hover:text-accent transition duration-150">Services</a>
+        <a href="#projects"
+          class="nav-link text-sm font-semibold hover:text-accent transition duration-150">Projects</a>
+        <a href="#contact" class="nav-link text-sm font-semibold hover:text-accent transition duration-150">Contact</a>
+      </nav>
+      <a href="#contact" class="btn-primary px-4 py-2 text-sm font-semibold rounded-lg">Let's Talk</a>
+    </div>
+  </header>
+
+  <main class="fade-in">
+    <section id="home"
+      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32 flex flex-col md:flex-row items-center">
+      <div class="md:w-3/5">
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-4 leading-tight">
+          <span class="gradient-text">Building Intelligent Mobile Experiences</span>
+        </h1>
+        <p class="text-lg text-gray-400 mb-8 max-w-xl">
+          I'm Memood Adams — a Flutter Developer specializing in AI-powered apps that transform data into
+          elegant, high-performance mobile experiences.
+        </p>
+
+        <div class="flex space-x-4 mb-10">
+          <a href="#projects" class="btn-primary px-6 py-3 font-bold rounded-lg shadow-lg">View Projects →</a>
+          <a href="mailto:adammemood@gmail.com"
+            class="bg-card px-6 py-3 font-bold rounded-lg border border-gray-600 hover:border-accent transition duration-150">Email
+            Me</a>
+        </div>
+
+        <div class="grid grid-cols-3 gap-8 mt-12">
+          <div class="text-center">
+            <p class="text-3xl font-bold gradient-text">5+</p>
+            <p class="text-sm text-gray-400">Mobile Projects</p>
+          </div>
+          <div class="text-center">
+            <p class="text-3xl font-bold gradient-text">3+</p>
+            <p class="text-sm text-gray-400">AI Integrations</p>
+          </div>
+          <div class="text-center">
+            <p class="text-3xl font-bold gradient-text">Riverpod</p>
+            <p class="text-sm text-gray-400">State Management</p>
+          </div>
+        </div>
+      </div>
+      <div class="md:w-2/5 mt-10 md:mt-0 flex justify-center">
+        <img src="images/profile.png" alt="Developer Avatar"
+          class="w-64 h-64 object-cover rounded-full border-4 border-accent shadow-2xl avatar-pulse">
+      </div>
+    </section>
+
+    <section id="about" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-[#282E3A]">
+      <h2 class="text-4xl font-bold text-center mb-16 gradient-text">About Me</h2>
+      <div class="flex flex-col md:flex-row items-start md:space-x-12">
+        <div class="md:w-3/5 space-y-4 text-gray-400">
+          <p>I'm a passionate Flutter Developer with a focus on building high-performance, cross-platform
+            mobile solutions. My specialization lies in integrating AI/ML models with robust backends
+            (like FastAPI and Supabase) to deliver intelligent, data-driven applications.</p>
+          <p>I translate complex business logic into smooth, responsive Flutter UIs, always prioritizing
+            clean architecture (like Riverpod and MVVM) to ensure reliability and scalability. My goal
+            is to blend elegant design with powerful functionality.</p>
+          <p>I am actively seeking remote Flutter developer roles and challenging projects where I can
+            leverage my expertise in mobile development and AI integration.</p>
+        </div>
+        <div class="md:w-2/5 mt-8 md:mt-0 space-y-6 text-sm">
+          <div class="flex items-center space-x-3">
+            <span class="text-accent text-lg">🎓</span>
+            <div>
+              <p class="font-semibold text-white">Education</p>
+              <p class="text-gray-400">Computer Science - [OAUSTECH - BTECH]</p>
+            </div>
+          </div>
+          <div class="flex items-center space-x-3">
+            <span class="text-accent text-lg">📍</span>
+            <div>
+              <p class="font-semibold text-white">Location</p>
+              <p class="text-gray-400">[Lagos state, Nigeria]</p>
+            </div>
+          </div>
+          <div class="flex items-center space-x-3">
+            <span class="text-accent text-lg">💻</span>
+            <div>
+              <p class="font-semibold text-white">Specialty</p>
+              <p class="text-gray-400">Flutter Mobile & AI Backend & Graphic Design</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-[#282E3A]">
+      <h2 class="text-4xl font-bold text-center mb-16 gradient-text">Skills & Expertise</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+
+        <div class="bg-card p-6 rounded-xl shadow-xl animated-card">
+          <h3 class="text-xl font-bold text-accent mb-4">Mobile Development</h3>
+          <div class="space-y-4">
+            <div class="space-y-1">
+              <p>Flutter / Dart</p>
+              <div class="h-2 bg-gray-700 rounded-full">
+                <div class="skill-bar-fill h-2 rounded-full" style="width: 90%;"></div>
+              </div>
+            </div>
+            <div class="space-y-1">
+              <p>State Management (Riverpod)</p>
+              <div class="h-2 bg-gray-700 rounded-full">
+                <div class="skill-bar-fill h-2 rounded-full" style="width: 85%;"></div>
+              </div>
+            </div>
+            <div class="space-y-1">
+              <p>Clean Architecture (MVVM)</p>
+              <div class="h-2 bg-gray-700 rounded-full">
+                <div class="skill-bar-fill h-2 rounded-full" style="width: 80%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-card p-6 rounded-xl shadow-xl animated-card">
+          <h3 class="text-xl font-bold text-accent mb-4">Backend & AI</h3>
+          <div class="space-y-4">
+            <div class="space-y-1">
+              <p>FastAPI / Python</p>
+              <div class="h-2 bg-gray-700 rounded-full">
+                <div class="skill-bar-fill h-2 rounded-full" style="width: 78%;"></div>
+              </div>
+            </div>
+            <div class="space-y-1">
+              <p>AI/ML Models (XGBoost)</p>
+              <div class="h-2 bg-gray-700 rounded-full">
+                <div class="skill-bar-fill h-2 rounded-full" style="width: 70%;"></div>
+              </div>
+            </div>
+            <div class="space-y-1">
+              <p>RESTful API Development</p>
+              <div class="h-2 bg-gray-700 rounded-full">
+                <div class="skill-bar-fill h-2 rounded-full" style="width: 85%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-card p-6 rounded-xl shadow-xl animated-card">
+          <h3 class="text-xl font-bold text-accent mb-4">Data & Persistence</h3>
+          <div class="space-y-4">
+            <div class="space-y-1">
+              <p>Supabase / Firebase</p>
+              <div class="h-2 bg-gray-700 rounded-full">
+                <div class="skill-bar-fill h-2 rounded-full" style="width: 80%;"></div>
+              </div>
+            </div>
+            <div class="space-y-1">
+              <p>Local DB (Hive / Isar)</p>
+              <div class="h-2 bg-gray-700 rounded-full">
+                <div class="skill-bar-fill h-2 rounded-full" style="width: 75%;"></div>
+              </div>
+            </div>
+            <div class="space-y-1">
+              <p>Data Encryption</p>
+              <div class="h-2 bg-gray-700 rounded-full">
+                <div class="skill-bar-fill h-2 rounded-full" style="width: 70%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-card p-6 rounded-xl shadow-xl animated-card">
+          <h3 class="text-xl font-bold text-accent mb-4">Tools & DevOps</h3>
+          <div class="space-y-4">
+            <div class="space-y-1">
+              <p>Git / GitHub</p>
+              <div class="h-2 bg-gray-700 rounded-full">
+                <div class="skill-bar-fill h-2 rounded-full" style="width: 95%;"></div>
+              </div>
+            </div>
+            <div class="space-y-1">
+              <p>Jira / Project Mgt</p>
+              <div class="h-2 bg-gray-700 rounded-full">
+                <div class="skill-bar-fill h-2 rounded-full" style="width: 80%;"></div>
+              </div>
+            </div>
+            <div class="space-y-1">
+              <p>Figma / Prototyping</p>
+              <div class="h-2 bg-gray-700 rounded-full">
+                <div class="skill-bar-fill h-2 rounded-full" style="width: 75%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="services" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-[#282E3A]">
+      <h2 class="text-4xl font-bold text-center mb-16 gradient-text">What I Do</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+
+        <div class="bg-card p-8 rounded-xl text-center shadow-xl border-t-4 border-accent animated-card">
+          <div class="text-4xl text-accent mb-4">📱</div>
+          <h3 class="text-2xl font-semibold mb-3">Custom Mobile Apps</h3>
+          <p class="text-gray-400 mb-6">Building high-performance, cross-platform mobile solutions from
+            concept to deployment using Flutter and clean architecture.</p>
+          <div class="space-x-2 text-sm font-medium">
+            <span class="text-accent border border-accent rounded-full px-3 py-1">Flutter</span>
+            <span class="text-accent border border-accent rounded-full px-3 py-1">Riverpod</span>
+            <span class="text-accent border border-accent rounded-full px-3 py-1">MVVM</span>
+          </div>
+        </div>
+
+        <div class="bg-card p-8 rounded-xl text-center shadow-xl border-t-4 border-accent animated-card">
+          <div class="text-4xl text-accent mb-4">🧠</div>
+          <h3 class="text-2xl font-semibold mb-3">AI & Data Integration</h3>
+          <p class="text-gray-400 mb-6">Integrating data science and ML models (like XGBoost) via FastAPI into
+            mobile workflows for intelligent features and forecasts.</p>
+          <div class="space-x-2 text-sm font-medium">
+            <span class="text-accent border border-accent rounded-full px-3 py-1">FastAPI</span>
+            <span class="text-accent border border-accent rounded-full px-3 py-1">Python</span>
+            <span class="text-accent border border-accent rounded-full px-3 py-1">XGBoost</span>
+          </div>
+        </div>
+
+        <div class="bg-card p-8 rounded-xl text-center shadow-xl border-t-4 border-accent animated-card">
+          <div class="text-4xl text-accent mb-4">⚙️</div>
+          <h3 class="text-2xl font-semibold mb-3">Code Refactoring & Audit</h3>
+          <p class="text-gray-400 mb-6">Auditing and optimizing existing Flutter/Dart codebases for improved
+            performance, maintainability, and scalability.</p>
+          <div class="space-x-2 text-sm font-medium">
+            <span class="text-accent border border-accent rounded-full px-3 py-1">Code Quality</span>
+            <span class="text-accent border border-accent rounded-full px-3 py-1">Performance</span>
+            <span class="text-accent border border-accent rounded-full px-3 py-1">Security</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <section id="projects" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-[#282E3A]">
+      <h2 class="text-4xl font-bold text-center mb-16 gradient-text">Featured Projects</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+
+        <div class="bg-card p-6 rounded-xl shadow-xl animated-card">
+          <div class="project-image-container h-96" id="project1-carousel"> <img src="images/upload-screen.png"
+              alt="AI Demand Forecasting App Screenshot 1" class="project-image active">
+            <img src="images/dashboard.png" alt="AI Demand Forecasting App Screenshot 2" class="project-image">
+            <img src="images/prediction.png"
+              alt="AI Demand Forecasting App Screenshot 3" class="project-image">
+
+            <button class="carousel-button carousel-button-prev"
+              onclick="moveSlide('project1-carousel', -1)">&#10094;</button>
+            <button class="carousel-button carousel-button-next"
+              onclick="moveSlide('project1-carousel', 1)">&#10095;</button>
+          </div>
+          <h3 class="text-xl font-bold text-accent mb-2">AI Demand Forecasting</h3>
+          <p class="text-gray-400 mb-4 text-sm">A mobile app that predicts retail demand using an XGBoost
+            model. Features secure CSV upload, visualization, and real-time backend insights.</p>
+          <div class="flex flex-wrap gap-2 text-xs font-medium mb-4">
+            <span class="bg-accent/20 text-accent px-2 py-1 rounded">Flutter</span>
+            <span class="bg-accent/20 text-accent px-2 py-1 rounded">FastAPI</span>
+            <span class="bg-accent/20 text-accent px-2 py-1 rounded">XGBoost</span>
+            <span class="bg-accent/20 text-accent px-2 py-1 rounded">Supabase</span>
+          </div>
+          <a href="https://github.com/admstoons/ai-retail-forecast" target="_blank"
+            class="text-sm font-semibold text-white hover:text-accent transition duration-150 mr-4">View
+            Code →</a>
+          <span class="text-sm text-gray-500">Demo TBD</span>
+        </div>
+
+        <div class="bg-card p-6 rounded-xl shadow-xl animated-card">
+          <div class="project-image-container h-96" id="project2-carousel"> <img src="images/fintrack-screen1.png"
+              alt="FinTrack App Screenshot 1" class="project-image active">
+            <img src="images/fintrack-screen2.png" alt="FinTrack App Screenshot 2" class="project-image">
+            <img src="https://via.placeholder.com/240x384/00BFFF/0D1117?text=FinTrack+Screen+3"
+              alt="FinTrack App Screenshot 3" class="project-image">
+
+            <button class="carousel-button carousel-button-prev"
+              onclick="moveSlide('project2-carousel', -1)">&#10094;</button>
+            <button class="carousel-button carousel-button-next"
+              onclick="moveSlide('project2-carousel', 1)">&#10095;</button>
+          </div>
+          <h3 class="text-xl font-bold text-accent mb-2">FinTrack - Finance Tracker</h3>
+          <p class="text-gray-400 mb-4 text-sm">A privacy-first budgeting and gamified tracking app featuring
+            encrypted local storage and delightful chart visualizations for user engagement.</p>
+          <div class="flex flex-wrap gap-2 text-xs font-medium mb-4">
+            <span class="bg-accent/20 text-accent px-2 py-1 rounded">Flutter</span>
+            <span class="bg-accent/20 text-accent px-2 py-1 rounded">Local DB (Isar)</span>
+            <span class="bg-accent/20 text-accent px-2 py-1 rounded">Encryption</span>
+            <span class="bg-accent/20 text-accent px-2 py-1 rounded">UX Design</span>
+          </div>
+          <a href="https://github.com/admstoons/fintrack" target="_blank"
+            class="text-sm font-semibold text-white hover:text-accent transition duration-150 mr-4">View
+            Code →</a>
+          <a href="#" class="text-sm font-semibold text-white hover:text-accent transition duration-150">Mockups</a>
+        </div>
+
+        <div class="bg-card p-6 rounded-xl shadow-xl animated-card">
+          <div class="project-image-container h-96" id="project3-carousel"> <img
+              src="https://via.placeholder.com/240x384/161B22/E5E7EB?text=Project+3+Image+1"
+              alt="Project 3 Placeholder Image 1" class="project-image active">
+            <img src="https://via.placeholder.com/240x384/161B22/E5E7EB?text=Project+3+Image+2"
+              alt="Project 3 Placeholder Image 2" class="project-image">
+
+            <button class="carousel-button carousel-button-prev"
+              onclick="moveSlide('project3-carousel', -1)">&#10094;</button>
+            <button class="carousel-button carousel-button-next"
+              onclick="moveSlide('project3-carousel', 1)">&#10095;</button>
+          </div>
+          <h3 class="text-xl font-bold text-accent mb-2">Your Next Project Title</h3>
+          <p class="text-gray-400 mb-4 text-sm">[Brief description of your third best project. Copy the
+            template and fill it out!]</p>
+          <div class="flex flex-wrap gap-2 text-xs font-medium mb-4">
+            <span class="bg-accent/20 text-accent px-2 py-1 rounded">Dart</span>
+            <span class="bg-accent/20 text-accent px-2 py-1 rounded">Firebase</span>
+            <span class="bg-accent/20 text-accent px-2 py-1 rounded">Maps API</span>
+          </div>
+          <a href="#" class="text-sm font-semibold text-white hover:text-accent transition duration-150 mr-4">Live
+            Demo →</a>
+          <a href="#" class="text-sm font-semibold text-white hover:text-accent transition duration-150">GitHub</a>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="contact" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-[#282E3A]">
+      <h2 class="text-4xl font-bold text-center mb-16 gradient-text">Get In Touch</h2>
+      <div class="flex flex-col md:flex-row gap-12">
+
+        <div class="md:w-1/3 space-y-6">
+          <div class="bg-card p-6 rounded-xl">
+            <p class="text-lg font-semibold text-accent mb-2">Email</p>
+            <a href="mailto:adammemood@gmail.com"
+              class="text-gray-300 hover:text-accent transition duration-150">adammemood@gmail.com</a>
+          </div>
+          <div class="bg-card p-6 rounded-xl">
+            <p class="text-lg font-semibold text-accent mb-2">LinkedIn</p>
+            <p class="text-gray-300">/in/adams-olaniyi-memood</p>
+          </div>
+          <div class="bg-card p-6 rounded-xl">
+            <p class="text-lg font-semibold text-accent mb-2">GitHub</p>
+            <p class="text-gray-300">/admstoons</p>
+          </div>
+        </div>
+
+        <div class="md:w-2/3">
+          <form action="https://formspree.io/f/xldpvokp" method="POST"
+            class="bg-card p-8 rounded-xl shadow-2xl space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <input type="text" name="name" placeholder="Your Name" required
+                class="w-full p-3 bg-[#0D1117] border border-gray-700 rounded-lg focus:ring-accent focus:border-accent">
+              <input type="email" name="_replyto" placeholder="Your Email" required
+                class="w-full p-3 bg-[#0D1117] border border-gray-700 rounded-lg focus:ring-accent focus:border-accent">
+            </div>
+            <input type="text" name="subject" placeholder="Your Subject" required
+              class="w-full p-3 bg-[#0D1117] border border-gray-700 rounded-lg focus:ring-accent focus:border-accent">
+            <textarea name="message" rows="5" placeholder="Your Message" required
+              class="w-full p-3 bg-[#0D1117] border border-gray-700 rounded-lg focus:ring-accent focus:border-accent"></textarea>
+            <button type="submit" class="btn-primary px-6 py-3 font-bold rounded-lg shadow-lg">Send
+              Message</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-gray-500 border-t border-[#282E3A] mt-10">
+    <p>&copy; 2025 Memood Adams. All rights reserved.</p>
+    <div class="flex justify-center space-x-6 mt-4">
+      <a href="https://www.linkedin.com/in/adams-olaniyi-memood-a32168240/" target="_blank"
+        class="hover:text-accent transition duration-150">LinkedIn</a>
+      <a href="https://github.com/admstoons" target="_blank"
+        class="hover:text-accent transition duration-150">GitHub</a>
+      <a href="https://twitter.com/admstoons" target="_blank" class="hover:text-accent transition duration-150">Twitter</a>
+    </div>
+  </footer>
+
+  <script>
+    // Simple script to highlight the active link in the navigation bar
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (scrollY >= sectionTop - 100) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(a => {
+        a.classList.remove('active');
+        if (a.getAttribute('href').includes(current)) {
+          a.classList.add('active');
+        }
+      });
+    });
+
+    // Simple script for smooth scrolling to sections
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // --- CAROUSEL FUNCTIONALITY ---
+    function moveSlide(carouselId, direction) {
+      const carousel = document.getElementById(carouselId);
+      const images = carousel.querySelectorAll('.project-image');
+      let currentIndex = -1;
+
+      images.forEach((img, index) => {
+        if (img.classList.contains('active')) {
+          currentIndex = index;
+          img.classList.remove('active');
+        }
+      });
+
+      let newIndex = currentIndex + direction;
+      if (newIndex >= images.length) {
+        newIndex = 0; // Loop to the first image
+      } else if (newIndex < 0) {
+        newIndex = images.length - 1; // Loop to the last image
+      }
+
+      images[newIndex].classList.add('active');
+    }
+
+    // Initialize carousels on page load (show the first image of each)
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.project-image-container').forEach(carousel => {
+        const images = carousel.querySelectorAll('.project-image');
+        if (images.length > 0) {
+          // Initialize: Ensure only the first image is active on load
+          images.forEach((img, index) => {
+            img.classList.remove('active');
+            if (index === 0) {
+              img.classList.add('active');
+            }
+          });
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
